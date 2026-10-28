@@ -14,9 +14,9 @@ export SAMPLE=$1 #main card
 export NUM=$2 #random seed
 
 #Change these as needed
-export OUTDIR=${OUTDIR:-/local/joosep/cld_edm4hep/v1.2.2_key4hep_2026-04-08_CLD_fa4d17b/}
-export CONFIG_DIR=${CONFIG_DIR:-/home/joosep/key4hep-sim/cld/CLDConfig}
-export WORKDIR=${WORKDIR:-/scratch/local/$USER/${SAMPLE}_${SLURM_JOB_ID}}
+export OUTDIR=${OUTDIR:-/local/${USER}/cld_edm4hep/v1.3.0_key4hep_2026-04-08/}
+export CONFIG_DIR=${CONFIG_DIR:-/home/${USER}/key4hep-sim/cld/CLDConfig}
+export WORKDIR=${WORKDIR:-/scratch/local/${USER}/${SAMPLE}_${SLURM_JOB_ID}}
 export FULLOUTDIR=${OUTDIR}/${SAMPLE}
 
 mkdir -p $FULLOUTDIR
