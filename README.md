@@ -13,7 +13,7 @@ Build the generator software:
 ```bash
 source /cvmfs/sw.hsf.org/key4hep/setup.sh -r 2026-04-08
 make -C generators/bhwide -j4
-export PATH="`pwd`/generators/bhwide/bin:$PATH" # optional
+export PATH="`pwd`/generators/bhwide/bin:$PATH"
 ```
 
 Remember to `make clean` and rebuild the generator software when switching to a new Key4HEP release.
