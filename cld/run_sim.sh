@@ -20,7 +20,7 @@ export CONFIG_DIR=${CONFIG_DIR:-/home/${USER}/key4hep-sim/cld/CLDConfig}
 export SIMDIR=${SIMDIR:-${CONFIG_DIR}}
 export BHWIDE_PATH="${BHWIDE_PATH:-$(command -v bhwide || printf '%s' "/home/${USER}/key4hep-sim/generators/bhwide/bin/bhwide")}"
 export WORKDIR=${WORKDIR:-/scratch/local/${USER}/${SAMPLE}_${SLURM_JOB_ID:-manual}}
-export FULLOUTDIR=${OUTDIR}/${SAMPLE}
+export FULLOUTDIR=${OUTDIR}/${SAMPLE}/root
 
 mkdir -p "${FULLOUTDIR}"
 
@@ -115,4 +115,4 @@ fi
 ls *.root
 
 #Copy the outputs
-cp CLDConfig/CLDConfig/out_RECO_REC.edm4hep.root "${FULLOUTDIR}/root/reco_${SAMPLE}_${NUM}.root"
+cp CLDConfig/CLDConfig/out_RECO_REC.edm4hep.root "${FULLOUTDIR}/reco_${SAMPLE}_${NUM}.root"
