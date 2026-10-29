@@ -1,6 +1,6 @@
 [submodule "cld/CLDConfig"]
 	path = cld/CLDConfig
-	url = git@github.com:ktht/CLDConfig.git
+	url = https://github.com/ktht/CLDConfig.git
 	branch = mlpf_2026-bkg
 [submodule "clic/CLICPerformance"]
 	path = clic/CLICPerformance
