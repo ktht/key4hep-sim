@@ -85,7 +85,8 @@ echo "Random:seed=${NUM}" >> "${PYTHIA_CARD}"
 cat "${PYTHIA_CARD}"
 
 #prepare the gen-sim-reco script
-echo "
+SIM_SCRIPT=sim.sh
+cat > "${SIM_SCRIPT}" <<EOF
 #!/bin/bash
 set -e
 if ! source /cvmfs/sw.hsf.org/key4hep/setup.sh -r ${KEY4HEP_VERSION}; then
@@ -99,16 +100,16 @@ ddsim -I out.hepmc -N -1 -O out_SIM.root --compactFile \$K4GEO/FCCee/CLD/compact
 
 cd CLDConfig/CLDConfig
 k4run CLDReconstruction.py --inputFiles ../../out_SIM.root --outputBasename out_RECO --num-events -1
-" > sim.sh
+EOF
 
-cat sim.sh
+cat "${SIM_SCRIPT}"
 
 #execute the gen-sim-reco step
 export PYTHONPATH=$(pwd)/CLDConfig/CLDConfig:$PYTHONPATH
 if [[ ${RUN_SIM_IN_SINGULARITY:-0} == 1 ]]; then
-    singularity exec -B "/home/${USER}" -B /cvmfs -B /scratch -B /local --env "PYTHONPATH=$(pwd)/CLDConfig/CLDConfig" /home/software/singularity/alma9.simg bash sim.sh
+    singularity exec -B "/home/${USER}" -B /cvmfs -B /scratch -B /local --env "PYTHONPATH=$(pwd)/CLDConfig/CLDConfig" /home/software/singularity/alma9.simg bash "${SIM_SCRIPT}"
 else
-    bash sim.sh
+    bash "${SIM_SCRIPT}"
 fi
 
 ls *.root
