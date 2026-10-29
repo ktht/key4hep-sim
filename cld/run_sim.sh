@@ -14,10 +14,10 @@ export SAMPLE=$1 #main card
 export NUM=$2 #random seed
 
 #Change these as needed
-export KEY4HEP_VERSION=2026-04-08
+export KEY4HEP_VERSION=${KEY4HEP_VERSION:-2026-04-08}
 export OUTDIR=${OUTDIR:-/local/${USER}/cld_edm4hep/v1.3.0_key4hep_${KEY4HEP_VERSION}/}
 export CONFIG_DIR=${CONFIG_DIR:-/home/${USER}/key4hep-sim/cld/CLDConfig}
-export SIMDIR=${SIMDIR:-$CONFIG_DIR}
+export SIMDIR=${SIMDIR:-${CONFIG_DIR}}
 export BHWIDE_PATH="${BHWIDE_PATH:-$(command -v bhwide || printf '%s' "/home/${USER}/key4hep-sim/generators/bhwide/bin/bhwide")}"
 export WORKDIR=${WORKDIR:-/scratch/local/${USER}/${SAMPLE}_${SLURM_JOB_ID}}
 export FULLOUTDIR=${OUTDIR}/${SAMPLE}
@@ -105,7 +105,11 @@ cat sim.sh
 
 #execute the gen-sim-reco step
 export PYTHONPATH=$(pwd)/CLDConfig/CLDConfig:$PYTHONPATH
-bash sim.sh
+if [[ ${RUN_SIM_IN_SINGULARITY:-0} == 1 ]]; then
+    singularity exec -B "/home/${USER}" -B /cvmfs -B /scratch -B /local --env "PYTHONPATH=$(pwd)/CLDConfig/CLDConfig" /home/software/singularity/alma9.simg bash sim.sh
+else
+    bash sim.sh
+fi
 
 ls *.root
 
