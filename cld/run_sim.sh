@@ -14,7 +14,8 @@ export SAMPLE=$1 #main card
 export NUM=$2 #random seed
 
 #Change these as needed
-export OUTDIR=${OUTDIR:-/local/${USER}/cld_edm4hep/v1.3.0_key4hep_2026-04-08/}
+export KEY4HEP_VERSION=2026-04-08
+export OUTDIR=${OUTDIR:-/local/${USER}/cld_edm4hep/v1.3.0_key4hep_${KEY4HEP_VERSION}/}
 export CONFIG_DIR=${CONFIG_DIR:-/home/${USER}/key4hep-sim/cld/CLDConfig}
 export WORKDIR=${WORKDIR:-/scratch/local/${USER}/${SAMPLE}_${SLURM_JOB_ID}}
 export FULLOUTDIR=${OUTDIR}/${SAMPLE}
@@ -45,7 +46,7 @@ cat card.cmd
 echo "
 #!/bin/bash
 set -e
-if ! source /cvmfs/sw.hsf.org/key4hep/setup.sh -r 2026-04-08; then
+if ! source /cvmfs/sw.hsf.org/key4hep/setup.sh -r ${KEY4HEP_VERSION}; then
     echo "Key4HEP setup failed; the script is going to abort."
     exit 1
 fi

@@ -14,9 +14,10 @@ export NUM=$1 #random seed
 export SAMPLE=$2 #main card
 
 #Change these as needed
-export OUTDIR=/local/joosep/cld_edm4hep/v1.2.2_key4hep_2026-04-08_CLD_fa4d17b/
-export SIMDIR=/home/joosep/key4hep-sim/cld/CLDConfig
-export WORKDIR=/scratch/local/$USER/${SAMPLE}_${SLURM_JOB_ID}
+export KEY4HEP_VERSION=2026-04-08
+export OUTDIR=/local/${USER}/cld_edm4hep/v1.3.0_key4hep_${KEY4HEP_VERSION}_CLD_c75ed96d/
+export SIMDIR=/home/${USER}/key4hep-sim/cld/CLDConfig
+export WORKDIR=/scratch/local/${USER}/${SAMPLE}_${SLURM_JOB_ID}
 export FULLOUTDIR=${OUTDIR}/${SAMPLE}
 
 mkdir -p $FULLOUTDIR
@@ -33,7 +34,10 @@ cat card.cmd
 echo "
 #!/bin/bash
 set -e
-source /cvmfs/sw.hsf.org/key4hep/setup.sh -r 2026-04-08
+if ! source /cvmfs/sw.hsf.org/key4hep/setup.sh -r ${KEY4HEP_VERSION}; then
+    echo "Key4HEP setup failed; the script is going to abort."
+    exit 1
+fi
 env
 ls `pwd`/CLDConfig/CLDConfig
 k4run CLDConfig/pythia.py -n $NEV --Dumper.Filename out.hepmc --Pythia8.PythiaInterface.pythiacard card.cmd
@@ -45,7 +49,7 @@ k4run CLDReconstruction.py --inputFiles ../../out_SIM.root --outputBasename out_
 
 cat sim.sh
 
-singularity exec -B /home/joosep -B /cvmfs -B /scratch -B /local --env PYTHONPATH=`pwd`/CLDConfig/CLDConfig /home/software/singularity/alma9.simg bash sim.sh
+singularity exec -B /home/${USER} -B /cvmfs -B /scratch -B /local --env PYTHONPATH=`pwd`/CLDConfig/CLDConfig /home/software/singularity/alma9.simg bash sim.sh
 
 ls *.root
 
