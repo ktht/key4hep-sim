@@ -45,7 +45,10 @@ cat card.cmd
 echo "
 #!/bin/bash
 set -e
-source /cvmfs/sw.hsf.org/key4hep/setup.sh -r 2026-04-08
+if ! source /cvmfs/sw.hsf.org/key4hep/setup.sh -r 2026-04-08; then
+    echo "Key4HEP setup failed; the script is going to abort."
+    exit 1
+fi
 env
 ls `pwd`/CLDConfig/CLDConfig
 k4run CLDConfig/pythia.py -n $NEV --Dumper.Filename out.hepmc --Pythia8.PythiaInterface.pythiacard card.cmd
