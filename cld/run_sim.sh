@@ -19,7 +19,7 @@ export OUTDIR=${OUTDIR:-/local/${USER}/cld_edm4hep/v1.3.0_key4hep_${KEY4HEP_VERS
 export CONFIG_DIR=${CONFIG_DIR:-/home/${USER}/key4hep-sim/cld/CLDConfig}
 export SIMDIR=${SIMDIR:-${CONFIG_DIR}}
 export BHWIDE_PATH="${BHWIDE_PATH:-$(command -v bhwide || printf '%s' "/home/${USER}/key4hep-sim/generators/bhwide/bin/bhwide")}"
-export WORKDIR=${WORKDIR:-/scratch/local/${USER}/${SAMPLE}_${SLURM_JOB_ID}}
+export WORKDIR=${WORKDIR:-/scratch/local/${USER}/${SAMPLE}_${SLURM_JOB_ID:-manual}}
 export FULLOUTDIR=${OUTDIR}/${SAMPLE}
 
 mkdir -p "${FULLOUTDIR}"
