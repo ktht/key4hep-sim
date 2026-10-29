@@ -14,3 +14,6 @@
 [submodule "idea/k4RecCalorimeter-local"]
 	path = idea/k4RecCalorimeter-local
 	url = https://github.com/HEP-KBFI/k4RecCalorimeter.git
+[submodule "generators/bhwide"]
+	path = generators/bhwide
+	url = https://github.com/ktht/bhwide.git
